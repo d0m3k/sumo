@@ -414,11 +414,11 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                   << "\n";
     }
 #endif
-    if (init.size() == 0) {
-        writeGeomLines(fallBackShape, device, elevationOSS);
-    } else {
-        writeGeomPP3(device, elevationOSS, init, length);
-    }
+    // if (init.size() == 0) {
+    writeGeomLines(fallBackShape, device, elevationOSS);
+    // } else {
+    // writeGeomPP3(device, elevationOSS, init, length);
+    // }
     device.setPrecision(gPrecision);
     device.closeTag();
     writeElevationProfile(fallBackShape, device, elevationOSS);
@@ -808,13 +808,14 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
                 offset = writeGeomLines(line, device, elevationDevice, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
-                    std::cout << "      writeLine lineLength=" << lineLength << " begShape" << j << "=" << toString(begShape) << " endShape" << j << "=" << toString(endShape) << " init" << j << "=" << toString(init) << "\n";
+                    std::cout << "      writeLine lineLength=" << lineLength << " begShape" << j << "=" << toString(begShape) << " endShape" << j << "=" << toString(endShape) << " init" << j << "=" << toString(ipe" << j << "=" << toString(endShape) << " init" << j << "=" << toString(init) << "\n";
                 }
 #endif
             } else {
                 // write bezier
                 const double curveLength = init.bezier(12).length2D();
-                offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
+                // offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
+                offset = writeGeomLines(line, device, elevationDevice, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
                     std::cout << "      writeCurve lineLength=" << lineLength << " curveLength=" << curveLength << " begShape" << j << "=" << toString(begShape) << " endShape" << j << "=" << toString(endShape) << " init" << j << "=" << toString(init) << "\n";
